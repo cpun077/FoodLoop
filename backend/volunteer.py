@@ -14,7 +14,7 @@ class Volunteer(User):
     def match_delivery(self, delivery_object):
         volunteer_location = (self.address, self.city, self.state)  
         delivery_location = (delivery_object.receiever.address, delivery_object.receiever.city, delivery_object.receiever.state) 
-        
+        #need to figure out calculate distance method
         distance = self.calculate_distance(volunteer_location, delivery_location)
         if distance < 10:  # 10 miles
             return True
