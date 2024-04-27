@@ -1,4 +1,4 @@
-class Requester(User):
+class Receiver(User):
     def __init__(self, name, email, address, city, state, is_organization, password):
         super().__init__(name, email, address, city, state, is_organization, password)
 
