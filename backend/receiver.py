@@ -3,6 +3,10 @@ class Receiver:
 
 		self.name = name
 		self.id = x_id
-		self.address
-		self.phone_number
+		self.address= address
+		self.phone_number= phone_number
 		self.organization = organization
+
+def receive_donation(self, donation):
+	self.received_item.append(donation)
+	self.updateInventory
