@@ -5,7 +5,9 @@ import json
 from util import get_coordinates
 from donater import Donater
 from receiver import Receiver
+from volunteer import Volunteer
 import logging
+
 
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
@@ -38,45 +40,36 @@ def request_send_form():
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
 
+def volunteer_send_form():
+    data = {"Email": "finnadie@gmail.com", "Delivery ID": 6}
+    response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
+    response2 = supabase.table('Delivery').select("*").eq("id", data["Delivery ID"]).execute().data[0]
+    volunteer = Volunteer(response1, supabase, config)
+    volunteer.request_delivery(response2)
+
+
+volunteer_send_form()
+import sys
+sys.exit()
+
+
 @app.route("/api/form", methods=['POST'])
 def send_form():
     data = request.get_json()
     address = data["Address"] + ", " + data["City"] + ", " + data["State"]
     coordinates = get_coordinates(address)
     if data and coordinates != -1:
-        response = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
-
-        if len(response.data) > 0:
-            return jsonify({
-                "error": "Duplicate User"
-            }), 400
-        else:
-            response = supabase.table('Users').insert({ 
-                "Name" : data["Name"],
-                "Email" : data["Email"],
-                "PhoneNumber" : data["PhoneNumber"],
-                "Address" : data["Address"],
-                "City" : data["City"],
-                "State" : data["State"],
-                "Zip Code" : data["Zip Code"],
-                "Organization" : data["Organization"],
-                "Type" : data["Type"],
-                "Password" : data["Password"],
-                "Longitude" : 1.00,
-                "Latitude" : 1.00,
-            }).execute()
-            print(response)
-
         return jsonify({
             'message': f'{data}'
         })
     elif coordinates == -1:
         return jsonify({
-            "error": "Invalid Home Address"
+            'error': 'Invalid Address'
         }), 400
+
     else:
         return jsonify({
-            "error": "Invalid JSON data"
+            'error': 'Invalid JSON data'
         }), 400
 
 if __name__ == "__main__":

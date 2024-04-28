@@ -23,7 +23,6 @@ class Receiver(user.User):
         delivery["RCity"] = self.city
         delivery["RState"] = self.state
         delivery["RZip Code"] = self.zipcode
-        delivery["in_progress"] = True
+        delivery["in_progress"] = False
 
         data, count = self.supabase.table('Delivery').insert(delivery).execute()
-
