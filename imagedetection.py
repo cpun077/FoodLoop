@@ -46,8 +46,8 @@ def classifyFood(img, desList):
     else:
         return "Unknown"
 
-
-image_folder = 'ImageQuery'
+# Load images from ImageTrain folder
+image_folder = 'ImageTrain'
 image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
 
 images = []
@@ -55,33 +55,25 @@ for file in image_files:
     img = cv2.imread(os.path.join(image_folder, file), cv2.IMREAD_GRAYSCALE)
     images.append(img)
 
-# Find descriptors for images in ImageQuery folder
+# Find descriptors for images in ImageTrain folder
 desList = findDes(images)
 print("Descriptors computed for reference images.")
 
-# Initialize video capture
+# Capture a single frame
 cap = cv2.VideoCapture(0)
+ret, frame = cap.read()
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        print("Error capturing frame.")
-        break
+# Convert frame to grayscale
+gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Convert frame to grayscale
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+# Classify the food image
+result = classifyFood(gray, desList)
 
-    # Classify the food image
-    result = classifyFood(gray, desList)
-
-    # Display the result on the screen
-    cv2.putText(frame, f"Food Condition: {result}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    cv2.imshow('Food Quality Classifier', frame)
-
-    # Break the loop if 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+# Display the result on the screen
+cv2.putText(frame, f"Food Condition: {result}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+cv2.imshow('Food Quality Classifier', frame)
 
 # Release video capture and close all windows
 cap.release()
+cv2.waitKey(0)
 cv2.destroyAllWindows()
