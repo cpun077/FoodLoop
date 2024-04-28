@@ -1,8 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from supabase import create_client, Client
+import json
+from util import get_coordinates
+from donater import Donater
+from receiver import Receiver
+
+with open("config.json", "r") as jsonFile:
+    config = json.load(jsonFile)
+
+supabase = create_client(config["url"], config["key"])
 
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route("/api/home", methods=['GET'])
 def return_home():
@@ -10,13 +21,40 @@ def return_home():
         'message':'Flask Connected!'
     })
 
+def donate_send_form():
+    data = {"Email":"lakaayush@gmail.com", "Description":"Yummy Food", "Picture":"pic"}
+    response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
+    donater = Donater(response)
+    donater.post_food(data["Description"], data["Picture"])
+
+def request_send_form():
+    data = {"Email":"godslayer@gmail.com", "Food ID":1}
+    response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
+    donater = Receiver(response)
+    donater.request_food()
+
+request_send_form()
+import sys
+sys.exit()
+
+
+
+
+
 @app.route("/api/form", methods=['POST'])
 def send_form():
     data = request.get_json()
-    if data:
+    address = data["Address"] + ", " + data["City"] + ", " + data["State"]
+    coordinates = get_coordinates(address)
+    if data and coordinates != -1:
         return jsonify({
             'message': f'{data}'
         })
+    elif coordinates == -1:
+        return jsonify({
+            'error': 'Invalid Address'
+        }), 400
+
     else:
         return jsonify({
             'error': 'Invalid JSON data'

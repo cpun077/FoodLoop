@@ -45,10 +45,10 @@ export default function Login({
     const name = "John Doe";
     const email = "email@email.com";
     const phone = "0123456789";
-    const address = "1234 Fake Avenue";
-    const city = "Cupertino";
+    const address = "1299 Susan Way";
+    const city = "Sunnyvale";
     const state = "California";
-    const zipcode = 90120;
+    const zipcode = 94087;
     const org = true;
     const type = 1;
     const password = "password";
