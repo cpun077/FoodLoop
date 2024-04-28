@@ -33,7 +33,7 @@ def give():
     data = request.get_json()
     response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     donater = Donater(response, supabase, config)
-    donater.post_food(data["Description"], "Picture")
+    donater.post_food(data["Description"], data["Picture"])
     print(response)
     return jsonify({
         'message': f'{data}'
@@ -119,8 +119,8 @@ def signup():
         return jsonify({
             "error": "Missing some fields"
         }), 400
-
-@app.route("api/foods", method=['GET']) 
+    
+@app.route("/api/foods", methods=['GET']) 
 def get_food():
     response = supabase.table('Food').select("*").execute().data
 
@@ -128,10 +128,11 @@ def get_food():
         "message":f"{response}"
         })
 
-@app.route("api/deliveries", method=['GET']) 
+@app.route("/api/deliveries", methods=['GET']) 
 def get_deliveries():
     response = supabase.table('Delivery').select("*").execute().data
     rets = []
+    print(response)
 
     for r in response:
         if r["in_progress"] == True:
@@ -149,12 +150,6 @@ def get_deliveries():
     return jsonify({
         "message":f"{rets}"
         })
-
-
-import sys
-get_food()
-sys.exit()
-
 
 @app.route("/api/signin", methods=['POST'])
 def signin():

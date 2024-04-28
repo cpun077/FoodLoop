@@ -11,12 +11,35 @@ import RootLayout from '../layout';
 export default function Give() {
 
   const [success, setSuccess] = useState(false)
+  const [photo, setPhoto] = useState<string | undefined>(undefined);
+
+  interface FileInputEvent extends React.ChangeEvent<HTMLInputElement> {
+    target: HTMLInputElement & EventTarget;
+  }
+
+  const getPhoto = (e:FileInputEvent) => {
+    const fileInput = e.target
+
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+      console.error('No file selected.');
+      return;
+    }
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      const base64Data = (event.target as FileReader).result?.toString().split(',')[1];
+      setPhoto(base64Data)
+    };
+  
+    reader.readAsDataURL(file);
+  };
+  
 
   const submit = async (formData: FormData) => {
 
     const email = localStorage.getItem("Email") ?? null;
     const desc = formData.get("desc") as string;
-    const photo = formData.get("photo") as string;
 
     const response = await fetch('http://localhost:8000/api/give', {
       method: 'POST',
@@ -26,7 +49,7 @@ export default function Give() {
       body: JSON.stringify({
         "Email": email,
         "Description": desc,
-        /*"Picture": photo,*/
+        "Picture": photo,
       })
     });
 
@@ -82,7 +105,15 @@ export default function Give() {
           </div>
           <label htmlFor="avatar">Upload image of donation:</label>
           <form>
-            <input className="uploadfoodimagebutton" type="file" name="avatar" accept="image/png, image/jpeg" required />
+            <input
+              className="uploadfoodimagebutton"
+              type="file"
+              id="uploadbutt"
+              name="avatar"
+              accept="image/png, image/jpeg"
+              onChange={(e: FileInputEvent) => getPhoto(e)}
+              required
+            />
             <div className="food-donator-landing-page-inner">
               <div className="describe-the-food-here-parent">
                 <div className="describe-the-food-container">
