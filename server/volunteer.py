@@ -1,15 +1,5 @@
 from user import User
-import geopy.distance
-from geopy.geocoders import Nominatim
 
-
-def get_coordinates(address):
-    geolocator = Nominatim(user_agent="app")
-    location = geolocator.geocode(address)
-    return (location.latitude, location.longitude)
-
-def get_distance(c1, c2):
-    return geopy.distance.geodesic(c1, c2).miles
 
 class Volunteer(User):
     def __init__(self, name, email, address, city, state, zip_code, is_organization):
