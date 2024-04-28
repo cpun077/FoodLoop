@@ -23,7 +23,7 @@ export default function NavBar(props:NavBarProps) {
                     <Link className="about-us" href={"/login"}>
                         History
                     </Link>
-                    <Link className="about-us" href={"/login"}>
+                    <Link className="about-us" href={"/chat"}>
                         Chat
                     </Link>
                     {props.auth ? (

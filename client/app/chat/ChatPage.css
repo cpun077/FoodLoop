@@ -129,6 +129,9 @@
   	justify-content: center;
   	text-align: center;
 }
+.logcontainer {
+	width: 80vw;
+}
 .b-wrapper {
   	border-radius: 50px;
   	background-color: #4cd2c2;
