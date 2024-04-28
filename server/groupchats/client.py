@@ -9,8 +9,8 @@ class Client:
     def __init__(self):
         self.event = threading.Event()
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.host = "tcp://0.tcp.us-cal-1.ngrok.io"
-        self.port = 12376
+        self.host = "localhost"
+        self.port = 10000
         self.addr = (self.host, self.port)
 
     def send(self):
@@ -51,6 +51,10 @@ class Client:
         name = sys.argv[1]
         self.sock.connect(self.addr)
         self.sock.sendall(name.encode())
+        room = self.sock.recv(64)
+        with open(f"logs/room{room.decode()}.txt", "r+") as f:
+            for line in f:
+                print(line, end="")
         signal.signal(signal.SIGINT, self.kill_client)
         signal.signal(signal.SIGHUP, self.kill_client)
         send_msg = threading.Thread(target=self.send)
