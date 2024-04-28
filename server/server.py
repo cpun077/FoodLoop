@@ -116,7 +116,37 @@ def signup():
         return jsonify({
             "error": "Missing some fields"
         }), 400
-    
+
+@app.route("api/deliveries", method=['GET']) 
+def get_deliveries():
+    response = supabase.table('Delivery').select("*").execute().data
+    rets = []
+
+    for r in response:
+        if r["in_progress"] == True:
+            continue
+        # extra location logic later
+        val = {}
+        val["Delivery ID"] = r["id"]
+        val["Date"] = r["Date"]
+        val["Poster"] = r["Poster"]
+        val["Description"] = r["Description"]
+        val["Pickup Address"] = r["DAddress"] + ", " + r["DCity"] + ", " + r["DState"]
+        val["Delivery Address"] = r["RAddress"] + ", " + r["RCity"] + ", " + r["RState"]
+        rets.append(val)
+        
+    return jsonify({
+        "message":f"{rets}"
+        })
+
+
+get_deliveries()
+
+import sys
+sys.exit()
+
+
+
 @app.route("/api/signin", methods=['POST'])
 def signin():
     data = request.get_json()
