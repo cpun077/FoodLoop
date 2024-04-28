@@ -1,6 +1,8 @@
+from user import User
+
 class Volunteer(User):
-    def __init__(self, name, email, address, city, state, is_organization, password):
-        super().__init__(name, email, address, city, state, is_organization, password)
+    def __init__(self, name, email, address, city, state, zip_code, is_organization):
+        super().__init__(name, email, address, city, state, is_organization)
 
     def request_delivery(self, delivery_object):
         

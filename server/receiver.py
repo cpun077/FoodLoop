@@ -1,5 +1,7 @@
+from user import User
+
 class Requester(User):
-    def __init__(self, name, email, address, city, state, is_organization, password):
+    def __init__(self, name, email, address, city, state, zip_code, is_organization):
         super().__init__(name, email, address, city, state, is_organization, password)
 
     def request_food(self, food_details):
@@ -7,6 +9,7 @@ class Requester(User):
         food_object = Food(**food_details)
         delivery_object = self.create_delivery(food_object)
         return delivery_object
+
     def create_delivery(self, food_object):
         # create a delivery object
         delivery = Delivery(food_object, self)
