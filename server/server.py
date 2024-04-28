@@ -64,8 +64,10 @@ def volunteer():
         'message': f'{data}'
     })
 
+#@app.route("/api/cleanup", methods=['POST'])
 def cleanup():
     # call this when requester has received food
+    # data = request.get_json()
     data = {"Delivery ID":6}
     data, count = supabase.table('Delivery').delete().eq('id', data["Delivery ID"]).execute()
 
