@@ -48,7 +48,7 @@ class Client:
 
     def start(self):
 
-        name = sys.argv[1]
+        name = "Aayush is my bitch"#sys.argv[1]
         self.sock.connect(self.addr)
         self.sock.sendall(name.encode())
         signal.signal(signal.SIGINT, self.kill_client)

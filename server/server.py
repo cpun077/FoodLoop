@@ -27,49 +27,107 @@ def return_home():
         'message':'Flask Connected!'
     })
 
-def donate_send_form():
-    data = {"Email":"lakaayush@gmail.com", "Description":"Yummy Food", "Picture":"pic"}
+@app.route("/api/give", methods=['POST'])
+def give():
+    data = request.get_json()
     response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     donater = Donater(response, supabase, config)
-    donater.post_food(data["Description"], data["Picture"])
+    donater.post_food(data["Description"], "Picture")
+    print(response)
+    return jsonify({
+        'message': f'{data}'
+    })
 
-def request_send_form():
+@app.route("/api/request", methods=['POST'])
+def request():
     data = {"Email":"godslayer@gmail.com", "Food ID":3}
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Food').select("*").eq("id", data["Food ID"]).execute().data[0]
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
+    print(response1, response2)
+    return jsonify({
+        'message': f'{data}'
+    })
 
-def volunteer_send_form():
+@app.route("/api/volunteer", methods=['POST'])
+def volunteer():
     data = {"Email": "finnadie@gmail.com", "Delivery ID": 6}
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Delivery').select("*").eq("id", data["Delivery ID"]).execute().data[0]
     volunteer = Volunteer(response1, supabase, config)
     volunteer.request_delivery(response2)
+    print(response1, response2)
+    return jsonify({
+        'message': f'{data}'
+    })
 
 
-volunteer_send_form()
-import sys
-sys.exit()
-
-
-@app.route("/api/form", methods=['POST'])
-def send_form():
+@app.route("/api/signup", methods=['POST'])
+def signup():
+    print(request)
     data = request.get_json()
     address = data["Address"] + ", " + data["City"] + ", " + data["State"]
     coordinates = get_coordinates(address)
     if data and coordinates != -1:
-        return jsonify({
-            'message': f'{data}'
-        })
+        response = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
+
+        if len(response.data) > 0:
+            return jsonify({
+                "error": "User already exists"
+            }), 400
+        else:
+            data["Longitude"] = 1.00
+            data["Latitude"] = 1.00
+            response = supabase.table('Users').insert({ 
+                "Name" : data["Name"],
+                "Email" : data["Email"],
+                "PhoneNumber" : data["PhoneNumber"],
+                "Address" : data["Address"],
+                "City" : data["City"],
+                "State" : data["State"],
+                "Zip Code" : data["Zip Code"],
+                "Organization" : data["Organization"],
+                "Type" : data["Type"],
+                "Password" : data["Password"],
+                "Longitude" : 1.00,
+                "Latitude" : 1.00,
+            }).execute()
+            print(response)
+            return jsonify({
+                'message': f'{data}'
+            })
+        
     elif coordinates == -1:
         return jsonify({
-            'error': 'Invalid Address'
+            "error": "Invalid home address"
         }), 400
 
     else:
         return jsonify({
-            'error': 'Invalid JSON data'
+            "error": "Missing some fields"
+        }), 400
+    
+@app.route("/api/signin", methods=['POST'])
+def signin():
+    data = request.get_json()
+    if data:
+        response1 = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
+        response2 = supabase.table('Users').select('*').eq("Password", data["Password"]).execute()
+
+        if len(response1.data) > 0 & len(response2.data) > 0:
+            print(response1, response2)
+            return jsonify({
+                'message': f'{data}'
+            })
+        else:
+            return jsonify({
+                "error": "Incorrect credentials"
+            }), 404
+
+    else:
+        return jsonify({
+            "error": "Missing some fields"
         }), 400
 
 if __name__ == "__main__":
