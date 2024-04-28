@@ -210,3 +210,16 @@
   	font-family: 'Open Sans';
 }
 
+.food-donator-landing-page#back {
+	background-image: url("../confetti.gif");
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.food-donator-landing-page#back h1 {
+	color: yellow;
+}
+
