@@ -3,12 +3,14 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
+import './login.css';
 
 export default function Login({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
+
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -32,61 +34,44 @@ export default function Login({
     "use server";
 
     const origin = headers().get("origin");
-    // const name = formData.get("name") as string;
-    // const email = formData.get("email") as string;
-    // const phone = formData.get("phone") as string;
-    // const address = formData.get("address") as string;
-    // const city = formData.get("city") as string;
-    // const state = formData.get("state") as string;
-    // const zipcode = parseInt(formData.get("zipcode") as string) as number;
-    // const org = formData.get("org") as string;
-    // const type = formData.get("type") as string;
-    // const password = formData.get("password") as string;
-    const name = "John Doe";
-    const email = "email@email.com";
-    const phone = "0123456789";
-    const address = "1299 Susan Way";
-    const city = "Sunnyvale";
-    const state = "California";
-    const zipcode = 94087;
-    const org = true;
-    const type = 1;
-    const password = "password";
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    const city = formData.get("city") as string;
+    const state = formData.get("state") as string;
+    const zipcode = parseInt(formData.get("zipcode") as string) as number;
+    const org = parseInt(formData.get("org") as string) as number;
+    const type = parseInt(formData.get("type") as string) as number;
+    const password = formData.get("password") as string;
+
     const supabase = createClient();
 
-    // const { error } = await supabase.auth.signUp({
-    //   email,
-    //   password,
-    //   options: {
-    //     emailRedirectTo: `${origin}/auth/callback`,
-    //   },
-    // });
-
     const response = await fetch('http://localhost:8000/api/form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          "Name" : name,
-          "Email" : email,
-          "PhoneNumber" : phone,
-          "Address" : address,
-          "City" : city,
-          "State" : state,
-          "Zip Code" : zipcode,
-          "Organization" : org,
-          "Type" : type,
-          "Password" : password,
-        })
-      });
-  
-      if (!response.ok) {
-        return redirect("/login?message=Response error")
-      }
-  
-      const responseData = await response.json();
-      return redirect(`/login?message=${responseData.message}`)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "Name": name,
+        "Email": email,
+        "PhoneNumber": phone,
+        "Address": address,
+        "City": city,
+        "State": state,
+        "Zip Code": zipcode,
+        "Organization": org,
+        "Type": type,
+        "Password": password,
+      })
+    });
+
+    if (!response.ok) {
+      return redirect("/login?message=Response error")
+    }
+
+    const responseData = await response.json();
+    return redirect(`/login?message=${responseData.message}`)
 
     // const { data, error } = await supabase
     //     .from('Users')
@@ -165,6 +150,7 @@ export default function Login({
           name="email"
           placeholder="you@example.com"
           required
+          type="email"
         />
 
         <label className="text-md" htmlFor="phone">
@@ -215,65 +201,96 @@ export default function Login({
           name="zipcode"
           placeholder="90210"
           required
+          type="number"
         />
 
         <label className="text-md" htmlFor="org">
           Organization
         </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="org"
-          placeholder="Skynet"
-          required
-        />
+        <div>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="org"
+            required
+            type="radio"
+            value="0"
+            id="yes"
+          />
+          <label
+            htmlFor="yes"
+            className="picker"
+          >
+            Yes
+          </label>
+        </div>
+        <div>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="org"
+            required
+            type="radio"
+            value="1"
+            id="no"
+          />
+          <label
+            htmlFor="no"
+            className="picker"
+          >
+            No
+          </label>
+        </div>
 
         <label className="text-md" htmlFor="type">
           User Type
         </label>
-        {/* <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="type"
-          placeholder="1, 2, or 3"
-          required
-        /> */}
-        <fieldset>
-        <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
-          <div className="flex gap-4">
-            <div className="flex items-center">
-              <input
-                id="pending"
-                name="status"
-                type="radio"
-                value="pending"
-                className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                aria-describedby="status-error"
-              />
-              <label
-                htmlFor="pending"
-                className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
-              >
-                Pending
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input
-                id="paid"
-                name="status"
-                type="radio"
-                value="paid"
-                className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                aria-describedby="status-error"
-              />
-              <label
-                htmlFor="paid"
-                className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
-              >
-                Paid
-              </label>
-            </div>
-          </div>
+        <div>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="type"
+            required
+            type="radio"
+            value="1"
+            id="giver"
+          />
+          <label
+            htmlFor="giver"
+            className="picker"
+          >
+            Giver
+          </label>
         </div>
-      </fieldset>
+        <div>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="type"
+            required
+            type="radio"
+            value="2"
+            id="receiver"
+          />
+          <label
+            htmlFor="receiver"
+            className="picker"
+          >
+            Receiver
+          </label>
+        </div>
+        <div>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="type"
+            required
+            type="radio"
+            value="3"
+            id="volunteer"
+          />
+          <label
+            htmlFor="volunteer"
+            className="picker"
+          >
+            Volunteer
+          </label>
+        </div>
 
         <label className="text-md" htmlFor="password">
           Password
