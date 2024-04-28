@@ -1,6 +1,11 @@
 import Link from "next/link"
 
-export default function NavBar() {
+interface NavBarProps {
+    auth: boolean;
+    method: () => void; // Adjust this type based on what your method does
+  }
+
+export default function NavBar(props:NavBarProps) {
     return (
         <div className="nav-bar-parent">
             <div className="nav-bar">
@@ -21,9 +26,15 @@ export default function NavBar() {
                     <Link className="about-us" href={"/login"}>
                         Chat
                     </Link>
-                    <Link className="about-us" href={"/login"}>
-                        Login
-                    </Link>
+                    {props.auth ? (
+                        <button className="about-us" onClick={props.method}>
+                            Sign Out
+                        </button>
+                    ) : (
+                        <Link className="about-us" href={"/login"}>
+                            Sign In
+                        </Link>
+                    )}
                 </div>
             </div>
             <div className="line">

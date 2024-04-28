@@ -1,10 +1,13 @@
 import Link from 'next/link';
+import RootLayout from '../layout';
 
 export default function Volunteer() {
 
   return (
-    <div>
+    <RootLayout>
+      <div>
         Volunteer
-  	</div>
+      </div>
+    </RootLayout>
   );
 }
