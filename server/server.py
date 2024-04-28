@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from supabase import create_client, Client
 import json
@@ -7,6 +7,7 @@ from donater import Donater
 from receiver import Receiver
 from volunteer import Volunteer
 import logging
+import base64
 
 
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -40,6 +41,7 @@ def give():
 
 @app.route("/api/request", methods=['POST'])
 def receive():
+    #data = request.get_json()
     data = {"Email":"godslayer@gmail.com", "Food ID":3}
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Food').select("*").eq("id", data["Food ID"]).execute().data[0]
@@ -52,6 +54,7 @@ def receive():
 
 @app.route("/api/volunteer", methods=['POST'])
 def volunteer():
+    #data = request.get_json()
     data = {"Email": "finnadie@gmail.com", "Delivery ID": 6}
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Delivery').select("*").eq("id", data["Delivery ID"]).execute().data[0]
@@ -117,6 +120,14 @@ def signup():
             "error": "Missing some fields"
         }), 400
 
+@app.route("api/foods", method=['GET']) 
+def get_food():
+    response = supabase.table('Food').select("*").execute().data
+
+    return jsonify({
+        "message":f"{response}"
+        })
+
 @app.route("api/deliveries", method=['GET']) 
 def get_deliveries():
     response = supabase.table('Delivery').select("*").execute().data
@@ -134,17 +145,15 @@ def get_deliveries():
         val["Pickup Address"] = r["DAddress"] + ", " + r["DCity"] + ", " + r["DState"]
         val["Delivery Address"] = r["RAddress"] + ", " + r["RCity"] + ", " + r["RState"]
         rets.append(val)
-        
+
     return jsonify({
         "message":f"{rets}"
         })
 
 
-get_deliveries()
-
 import sys
+get_food()
 sys.exit()
-
 
 
 @app.route("/api/signin", methods=['POST'])
