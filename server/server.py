@@ -38,32 +38,45 @@ def request_send_form():
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
 
-
-request_send_form()
-import sys
-sys.exit()
-
-
-
-
-
 @app.route("/api/form", methods=['POST'])
 def send_form():
     data = request.get_json()
     address = data["Address"] + ", " + data["City"] + ", " + data["State"]
     coordinates = get_coordinates(address)
     if data and coordinates != -1:
+        response = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
+
+        if len(response.data) > 0:
+            return jsonify({
+                "error": "Duplicate User"
+            }), 400
+        else:
+            response = supabase.table('Users').insert({ 
+                "Name" : data["Name"],
+                "Email" : data["Email"],
+                "PhoneNumber" : data["PhoneNumber"],
+                "Address" : data["Address"],
+                "City" : data["City"],
+                "State" : data["State"],
+                "Zip Code" : data["Zip Code"],
+                "Organization" : data["Organization"],
+                "Type" : data["Type"],
+                "Password" : data["Password"],
+                "Longitude" : 1.00,
+                "Latitude" : 1.00,
+            }).execute()
+            print(response)
+
         return jsonify({
             'message': f'{data}'
         })
     elif coordinates == -1:
         return jsonify({
-            'error': 'Invalid Address'
+            "error": "Invalid Home Address"
         }), 400
-
     else:
         return jsonify({
-            'error': 'Invalid JSON data'
+            "error": "Invalid JSON data"
         }), 400
 
 if __name__ == "__main__":

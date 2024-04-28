@@ -4,7 +4,10 @@ from geopy.geocoders import Nominatim
 
 def get_coordinates(address):
     geolocator = Nominatim(user_agent="app")
-    location = geolocator.geocode(address)
+    try:
+        location = geolocator.geocode(address)
+    except:
+        return -1
     print(location.address)
     if location == None:
         return -1

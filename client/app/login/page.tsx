@@ -67,11 +67,10 @@ export default function Login({
     });
 
     if (!response.ok) {
-      return redirect("/login?message=Response error")
+      const data = await response.json()
+      return redirect(`/login?message=${data.error}`)
     }
-
-    const responseData = await response.json();
-    return redirect(`/login?message=${responseData.message}`)
+    return redirect("/login?message=Signed up")
 
     // const { data, error } = await supabase
     //     .from('Users')
@@ -164,7 +163,7 @@ export default function Login({
         />
 
         <label className="text-md" htmlFor="address">
-          Address
+          Home Address
         </label>
         <input
           className="rounded-md px-4 py-2 bg-inherit border mb-6"
@@ -213,7 +212,7 @@ export default function Login({
             name="org"
             required
             type="radio"
-            value="0"
+            value="1"
             id="yes"
           />
           <label
@@ -229,7 +228,7 @@ export default function Login({
             name="org"
             required
             type="radio"
-            value="1"
+            value="0"
             id="no"
           />
           <label
