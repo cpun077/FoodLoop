@@ -46,7 +46,7 @@ def classifyFood(img, desList):
     else:
         return "Unknown"
 
-# Load images from ImageTrain folder
+
 image_folder = 'ImageQuery'
 image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
 
