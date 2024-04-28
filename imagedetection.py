@@ -47,7 +47,7 @@ def classifyFood(img, desList):
         return "Unknown"
 
 # Load images from ImageTrain folder
-image_folder = 'ImageTrain'
+image_folder = 'ImageQuery'
 image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
 
 images = []
@@ -55,7 +55,7 @@ for file in image_files:
     img = cv2.imread(os.path.join(image_folder, file), cv2.IMREAD_GRAYSCALE)
     images.append(img)
 
-# Find descriptors for images in ImageTrain folder
+# Find descriptors for images in ImageQuery folder
 desList = findDes(images)
 print("Descriptors computed for reference images.")
 
