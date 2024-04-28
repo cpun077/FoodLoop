@@ -15,7 +15,6 @@ export default function Give() {
   const submit = async (formData: FormData) => {
 
     const email = localStorage.getItem("Email") ?? null;
-    console.log(email)
     const desc = formData.get("desc") as string;
     const photo = formData.get("photo") as string;
 
@@ -40,32 +39,33 @@ export default function Give() {
   };
 
   return (
-    <RootLayout>
-        success ? (
-        <div className='food-donator-landing-page' id='back'>
-          <h1>You Just Made Somebody's Day!</h1>
-          <Link
-            href={"/"}
-            className='bg-purple-700 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm'
+    success ? (<RootLayout>
+      <div className='food-donator-landing-page' id='back'>
+        <h1>You Just Made Somebody's Day!</h1>
+        <Link
+          href={"/"}
+          className='bg-purple-700 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm'
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>{" "}
-            Return Home
-          </Link>
-        </div>
-        ) : (
+            <polyline points="15 18 9 12 15 6" />
+          </svg>{" "}
+          Return Home
+        </Link>
+      </div>
+    </RootLayout>
+    ) : (
+      <RootLayout>
         <div className="food-donator-landing-page">
           <div className="thank-you-for-donating-your-fo-wrapper">
             <div className="thank-you-for-container">
@@ -119,7 +119,7 @@ export default function Give() {
             </div>
           </div>
         </div>
-        )
-    </RootLayout>
+      </RootLayout>
+    )
   );
 }
