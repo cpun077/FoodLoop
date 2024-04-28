@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './FoodRequestorPage1.css';
 import RootLayout from '../layout';
+import SetMealIcon from '@mui/icons-material/SetMeal';
+import { SetMeal } from '@mui/icons-material';
 
 export default function Request() {
 
@@ -107,7 +109,7 @@ export default function Request() {
             <div className="frame-wrapper">
               <div className="pescatarian-parent">
                 <div className="about-us">Pescatarian</div>
-                <img className="dropdown-1-icon" alt="" src="Dropdown 1.svg" />
+                <SetMealIcon />
 
               </div>
             </div>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import RootLayout from '../layout';
 import { useEffect, useState } from 'react';
 import './DeliveryLandingPage.css';
+import SpeedIcon from '@mui/icons-material/Speed';
 
 export default function Volunteer() {
 
@@ -151,7 +152,7 @@ export default function Volunteer() {
             <div className="frame-wrapper">
               <div className="miles-parent">
                 <div className="miles">20 Miles</div>
-                <img className="dropdown-1-icon" alt="" src="Dropdown 1.svg" />
+                < SpeedIcon />
 
               </div>
             </div>

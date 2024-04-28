@@ -49,6 +49,8 @@
 }
 .thank-you-for-donating-your-fo {
   	margin: 0;
+	color: yellow;
+	font-weight: bold;
 }
 .thank-you-for-container {
   	align-self: stretch;
@@ -65,7 +67,7 @@
   	flex-direction: column;
   	align-items: center;
   	justify-content: center;
-  	background-image: url('https://drive.google.com/thumbnail?id=1sav3Th6LXhuUSdEP13s_wjlXrKxVUnAC');
+  	background-image: url('https://media.istockphoto.com/id/536665840/photo/family-dinner.jpg?s=612x612&w=0&k=20&c=9dc8vWUoErfaxzTNqYt2T7sA5DyCRO5gRvF6pYU1LSI=');
   	background-size: cover;
   	background-repeat: no-repeat;
   	background-position: top;

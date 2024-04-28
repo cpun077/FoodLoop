@@ -133,6 +133,7 @@ def get_deliveries():
         if r["in_progress"] == True:
             continue
         foodata, foodcount = supabase.table('Food').select('id').eq("Description", r["Description"]).execute()
+        print(foodata)
         foodid = foodata[1][0]['id']
 
         print("FoOD ID: ", foodid)

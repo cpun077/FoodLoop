@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import RootLayout from '../layout';
 import './ChatPage.css';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function Chat() {
 
@@ -14,16 +15,16 @@ export default function Chat() {
     const ChatMsg = (props: ChatProps) => {
         return (
             <div className="useramessage1">
-            <div className="frame-parent">
-                <div className="a-wrapper">
-                    <div className="a">{props.name.split('')[0]}</div>
-                </div>
-                <div className="message">
-                    <p>{props.name}</p>
-                    <div className="this-is-a">{`: ${props.text}`}</div>
+                <div className="frame-parent">
+                    <div className="a-wrapper">
+                        <div className="a">{props.name.split('')[0]}</div>
+                    </div>
+                    <div className="message">
+                        <p>{props.name}</p>
+                        <div className="this-is-a">{`: ${props.text}`}</div>
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 
@@ -46,11 +47,22 @@ export default function Chat() {
         },
     ])
 
+    const [text, setText] = useState('')
+
+    const handleClick = () => {
+        const email = localStorage.getItem("Email")!;
+        let newtext = {
+            name: email,
+            text: text
+        }
+        setLog([...log, newtext]);
+    }
+
     return (
         <RootLayout>
             <div className="chat-page">
                 <div className="uploadfoodimagebutton-parent">
-                    <img className="uploadfoodimagebutton-icon" alt="" src="UploadFoodImageButton.png" />
+                    <img className="uploadfoodimagebutton-icon" alt="" src="https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B" />
 
                     <div className="this-is-the-container">
                         <p className="this-is-the">This is the description of the food presented to the left.</p>
@@ -70,9 +82,8 @@ export default function Chat() {
                     ))}
                 </div>
                 <div className="input-field-parent">
-                    <input className='input-field' placeholder='Type your message here' />
-                    <img className="mic-icon" alt="" src="Mic.svg" />
-
+                    <input onChange={(e) => setText(e.currentTarget.value)} className='input-field' placeholder='Type your message here' />
+                    <button className='mic-icon' onClick={handleClick}><SendIcon /></button>
                 </div>
             </div>
         </RootLayout>

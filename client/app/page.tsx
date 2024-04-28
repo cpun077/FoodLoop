@@ -15,7 +15,7 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<div className="bannerfinal-2-wrapper">
-					<img className="bannerfinal-2-icon" alt="" src="https://drive.google.com/thumbnail?id=1sav3Th6LXhuUSdEP13s_wjlXrKxVUnAC" />
+					<img className="bannerfinal-2-icon" alt="" src="https://media.istockphoto.com/id/536665840/photo/family-dinner.jpg?s=612x612&w=0&k=20&c=9dc8vWUoErfaxzTNqYt2T7sA5DyCRO5gRvF6pYU1LSI=" />
 
 				</div>
 				<div className="wastage-fact">
