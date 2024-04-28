@@ -34,7 +34,6 @@ def give():
     response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     donater = Donater(response, supabase, config)
     donater.post_food(data["Description"], data["Picture"])
-    print(response)
     return jsonify({
         'message': f'{data}'
     })
@@ -42,26 +41,24 @@ def give():
 @app.route("/api/request", methods=['POST'])
 def receive():
     data = request.get_json()
-    print(data)
     #data = {"Email":"godslayer@gmail.com", "Food ID":3}
     response1 = supabase.table("Users").select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table("Food").select("*").eq("id", data["Food ID"]).execute().data[0]
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
-    print(response1, response2)
     return jsonify({
         'message': f'{data}'
     })
 
 @app.route("/api/volunteer", methods=['POST'])
 def volunteer():
-    #data = request.get_json()
-    data = {"Email": "finnadie@gmail.com", "Delivery ID": 6}
+    data = request.get_json()
+
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Delivery').select("*").eq("id", data["Delivery ID"]).execute().data[0]
     volunteer = Volunteer(response1, supabase, config)
     volunteer.request_delivery(response2)
-    print(response1, response2)
+    print("HERE\n\n\n", data["Food ID"])
     data, count = supabase.table('Food').delete().eq('id', data["Food ID"]).execute()
 
     return jsonify({
@@ -78,7 +75,6 @@ def cleanup():
 
 @app.route("/api/signup", methods=['POST'])
 def signup():
-    print(request)
     data = request.get_json()
     address = data["Address"] + ", " + data["City"] + ", " + data["State"]
     coordinates = get_coordinates(address)
@@ -106,7 +102,6 @@ def signup():
                 "Longitude" : 1.00,
                 "Latitude" : 1.00,
             }).execute()
-            print(response)
             return jsonify({
                 'message': f'{data}'
             })
@@ -133,11 +128,14 @@ def get_food():
 def get_deliveries():
     response = supabase.table('Delivery').select("*").execute().data
     rets = []
-    print(response)
 
     for r in response:
         if r["in_progress"] == True:
             continue
+        foodata, foodcount = supabase.table('Food').select('id').eq("Description", r["Description"]).execute()
+        foodid = foodata[1][0]['id']
+
+        print("FoOD ID: ", foodid)
         # extra location logic later
         val = {}
         val["Delivery ID"] = r["id"]
@@ -146,6 +144,7 @@ def get_deliveries():
         val["Description"] = r["Description"]
         val["Pickup Address"] = r["DAddress"] + ", " + r["DCity"] + ", " + r["DState"]
         val["Delivery Address"] = r["RAddress"] + ", " + r["RCity"] + ", " + r["RState"]
+        val["Food ID"] = foodid
         rets.append(val)
 
     return jsonify({
@@ -158,7 +157,6 @@ def signin():
     if data:
         response1 = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
         response2 = supabase.table('Users').select('*').eq("Password", data["Password"]).execute()
-        print(response1, response2)
 
         if len(response1.data) > 0 and len(response2.data) > 0:
             return jsonify({

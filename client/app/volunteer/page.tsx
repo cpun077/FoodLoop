@@ -7,15 +7,42 @@ import './DeliveryLandingPage.css';
 
 export default function Volunteer() {
 
+  const [clicked, setClicked] = useState(false)
+
   interface tupleInterface {
     id: number,
     d: string;
     pickup: string;
     dropoff: string
     time: string;
+    food: number
   }
 
   const Tuple = (props: tupleInterface) => {
+
+    const handleClick = async () => {
+      setClicked(true)
+      const email = localStorage.getItem("Email") ?? null;
+
+      const response = await fetch('http://localhost:8000/api/volunteer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "Email": email,
+          "Delivery ID": props.id,
+          "Food ID": props.food
+        })
+      });
+  
+      if (!response.ok) {
+        const data = await response.json()
+        alert(data.error)
+      }
+  
+    }
+
     return (
       <div className="deliverytableheaders1">
         <div className="miles-wrapper">
@@ -38,9 +65,9 @@ export default function Volunteer() {
         </div>
         <div className="deliverytableheaders-child1">
         </div>
-        <div className="view-wrapper">
-          <div className="thank-you-for-container">View</div>
-        </div>
+        <button onClick={handleClick} className="view-wrapper">
+          <div className="thank-you-for-container">Pick Up</div>
+        </button>
       </div>
     )
   }
@@ -52,6 +79,7 @@ export default function Volunteer() {
       pickup: "1497 Fruitdale Ave, San Jose, CA",
       dropoff: "100 Union Sq, San Jose, CA",
       time: "25 Min",
+      food: 2
     },
     {
       id: 2,
@@ -59,6 +87,7 @@ export default function Volunteer() {
       pickup: "2924 Carter Way, Antioch, CA",
       dropoff: "101 San Fernando, Antioch, CA",
       time: "30 Min",
+      food: 7
     },
     {
       id: 3,
@@ -66,6 +95,7 @@ export default function Volunteer() {
       pickup: "567 Carter Way, Antioch, CA",
       dropoff: "1001 Union Sq, San Jose, CA",
       time: "35 Min",
+      food: 11
     },
   ])
 
@@ -80,7 +110,8 @@ export default function Volunteer() {
       interface DeliveryData {
         "Pickup Address": string;
         "Delivery Address": string;
-        "Delivery ID": string;
+        "Delivery ID": number;
+        "Food ID": number
       }
       let parsed = await response.json()
       let string = await parsed.message
@@ -91,7 +122,8 @@ export default function Volunteer() {
         d: "15 Mi",
         pickup: row["Pickup Address"],
         dropoff: row["Delivery Address"],
-        time: "35 min"
+        time: "35 min",
+        food: row["Food ID"]
       }))
       console.log(updatedtuples)
       setRows(updatedtuples)
@@ -176,6 +208,7 @@ export default function Volunteer() {
                 pickup={row.pickup}
                 dropoff={row.dropoff}
                 time={row.time}
+                food={row.food}
               />
               <div className="delivery-landing-page-ui-child">
               </div>

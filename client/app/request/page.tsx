@@ -21,7 +21,6 @@ export default function Request() {
     const handleClick = async () => {
       setClicked(true)
       const email = localStorage.getItem("Email") ?? null;
-      console.log(email, props.id)
 
       const response = await fetch('http://localhost:8000/api/request', {
         method: 'POST',
