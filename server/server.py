@@ -58,9 +58,16 @@ def volunteer():
     volunteer = Volunteer(response1, supabase, config)
     volunteer.request_delivery(response2)
     print(response1, response2)
+    data, count = supabase.table('Food').delete().eq('id', data["Food ID"]).execute()
+
     return jsonify({
         'message': f'{data}'
     })
+
+def cleanup():
+    # call this when requester has received food
+    data = {"Delivery ID":6}
+    data, count = supabase.table('Delivery').delete().eq('id', data["Delivery ID"]).execute()
 
 
 @app.route("/api/signup", methods=['POST'])
