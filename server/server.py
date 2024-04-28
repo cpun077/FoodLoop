@@ -41,10 +41,11 @@ def give():
 
 @app.route("/api/request", methods=['POST'])
 def receive():
-    #data = request.get_json()
-    data = {"Email":"godslayer@gmail.com", "Food ID":3}
-    response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
-    response2 = supabase.table('Food').select("*").eq("id", data["Food ID"]).execute().data[0]
+    data = request.get_json()
+    print(data)
+    #data = {"Email":"godslayer@gmail.com", "Food ID":3}
+    response1 = supabase.table("Users").select("*").eq("Email", data["Email"]).execute().data[0]
+    response2 = supabase.table("Food").select("*").eq("id", data["Food ID"]).execute().data[0]
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
     print(response1, response2)

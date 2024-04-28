@@ -9,35 +9,65 @@ export default function Request() {
 
   let temppic = "https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B"
 
+  const [clicked, setClicked] = useState(false)
+
   interface ItemInterface {
     description: string;
     pic: string;
+    id: number;
   }
   const Item = (props: ItemInterface) => {
+
+    const handleClick = async () => {
+      setClicked(true)
+      const email = localStorage.getItem("Email") ?? null;
+      console.log(email, props.id)
+
+      const response = await fetch('http://localhost:8000/api/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "Email": email,
+          "Food ID": props.id,
+        })
+      });
+  
+      if (!response.ok) {
+        const data = await response.json()
+        alert(data.error)
+      }
+  
+    }
+
     return (
-      <div className="view-button-1">
+      <button className="view-button-1" onClick={handleClick}>
         <img className="uploadfoodimagebutton-icon" alt="" src={`data:image/png;base64,${props.pic}`} />
 
         <div className="shrimp-scampi-with-oyster-container">
           <p className="shrimp-scampi">{props.description}</p>
         </div>
         <div className="requestthisbutton">
-          <div className="about-us">View</div>
+          <div className="about-us">Order</div>
         </div>
-      </div>
+      </button>
     )
   }
 
   const [items, setItems] = useState([
     {
       description: "Shrim Scampi with Oyster Sauce Be Aware of Allergies.",
-      pic: "Sample"
+      pic: "Sample",
+      id: 1,
     }, {
       description: "Shrimp Noodles with Oyster Sauce and French Fries on the Side",
-      pic: "Sample"
+      pic: "Sample",
+      id: 2,
     }, {
       description: "Shrimp Noodles with Oyster Sauce and French Fries on the Side",
-      pic: "Sample"
+      pic: "Sample",
+      id: 3,
     }
   ])
 
@@ -52,6 +82,7 @@ export default function Request() {
       interface DeliveryData {
         "Description": string;
         "Picture": string;
+        "id": string;
       }
       let parsed = await response.json()
       let string = await parsed.message
@@ -59,7 +90,8 @@ export default function Request() {
       let array = JSON.parse(fixed)
       let fetched = array.map((row: DeliveryData) => ({
         description: row["Description"],
-        pic: row["Picture"]
+        pic: row["Picture"],
+        id: row["id"],
       }))
       setItems(fetched)
     };
@@ -85,7 +117,7 @@ export default function Request() {
         <div className="food-carousel">
           {
             items.map((item) => (
-              <Item description={item.description} pic={item.pic}/>
+              <Item description={item.description} pic={item.pic} id={item.id}/>
             ))
           }
         </div>
