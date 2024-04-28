@@ -39,7 +39,7 @@ def give():
     })
 
 @app.route("/api/request", methods=['POST'])
-def request():
+def receive():
     data = {"Email":"godslayer@gmail.com", "Food ID":3}
     response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
     response2 = supabase.table('Food').select("*").eq("id", data["Food ID"]).execute().data[0]
@@ -114,9 +114,9 @@ def signin():
     if data:
         response1 = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
         response2 = supabase.table('Users').select('*').eq("Password", data["Password"]).execute()
+        print(response1, response2)
 
-        if len(response1.data) > 0 & len(response2.data) > 0:
-            print(response1, response2)
+        if len(response1.data) > 0 and len(response2.data) > 0:
             return jsonify({
                 'message': f'{data}'
             })

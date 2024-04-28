@@ -9,9 +9,9 @@ export default function Dashboard() {
 			<NavBar />
 			<div className="approx-181000-tons-of-food-g-wrapper">
 				<div className="approx-181000-tons-container">
-					<span>Approx. </span>
+					<span>Around </span>
 					<b>181,000 tons </b>
-					<span>of food goes to waste in the U.S. per day</span>
+					<span>of food is wasted in the United States everyday</span>
 				</div>
 			</div>
 			<div className="bannerfinal-2-wrapper">

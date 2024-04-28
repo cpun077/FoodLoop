@@ -1,3 +1,7 @@
 .picker {
     margin-left: 2vw;
 }
+
+form#login {
+    margin-top: 4vh;
+}
