@@ -5,7 +5,9 @@ import json
 from util import get_coordinates
 from donater import Donater
 from receiver import Receiver
+from volunteer import Volunteer
 import logging
+
 
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
@@ -38,13 +40,17 @@ def request_send_form():
     donater = Receiver(response1, supabase, config)
     donater.request_food(response2)
 
+def volunteer_send_form():
+    data = {"Email": "finnadie@gmail.com", "Delivery ID": 6}
+    response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
+    response2 = supabase.table('Delivery').select("*").eq("id", data["Delivery ID"]).execute().data[0]
+    volunteer = Volunteer(response1, supabase, config)
+    volunteer.request_delivery(response2)
 
-request_send_form()
+
+volunteer_send_form()
 import sys
 sys.exit()
-
-
-
 
 
 @app.route("/api/form", methods=['POST'])
