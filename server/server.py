@@ -64,7 +64,7 @@ def volunteer():
     data, count = supabase.table('Food').delete().eq('id', data["Food ID"]).execute()
 
     return jsonify({
-        'message': f'{data}'
+        'message':data
     })
 
 #@app.route("/api/cleanup", methods=['POST'])

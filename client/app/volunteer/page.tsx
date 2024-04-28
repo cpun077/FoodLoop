@@ -79,18 +79,21 @@ export default function Volunteer() {
       });
       interface DeliveryData {
         "Pickup Address": string;
-        "Dropoff Address": string;
+        "Delivery Address": string;
         "Delivery ID": string;
       }
-      let data = await response.json()
-      console.log(data)
-      let updatedtuples = data.map((row: DeliveryData) => ({
+      let parsed = await response.json()
+      let string = await parsed.message
+      let fixed = string.replace(/'/g, '"'); //has single quotes around keys for some reason
+      let array = JSON.parse(fixed)
+      let updatedtuples = array.map((row: DeliveryData) => ({
         id: row["Delivery ID"],
         d: "15 Mi",
         pickup: row["Pickup Address"],
-        dropoff: row["Dropoff Address"],
+        dropoff: row["Delivery Address"],
         time: "35 min"
       }))
+      console.log(updatedtuples)
       setRows(updatedtuples)
     };
 
