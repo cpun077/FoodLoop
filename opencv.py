@@ -1,59 +1,51 @@
 import cv2
-import cvlib as cv
-from cvlib.object_detection import draw_bbox
+from cvlib.object_detection import detect_common_objects, draw_bbox
 from gtts import gTTS
 from playsound import playsound
-from food_facts import food_facts
+import os  
+import os
 
 def speech(text):
     print(text)
     language = "en"
     output = gTTS(text=text, lang=language, slow=False)
-
+    
+    # Create directory if it doesn't exist
+    os.makedirs("./sounds", exist_ok=True)
+    
     output.save("./sounds/output.mp3")
     playsound("./sounds/output.mp3")
 
+dataset_paths = [
+    "/GitHub/hackdavis24/server/Test",
+    "/GitHub/hackdavis24/server/Train"
+]
 
-video = cv2.VideoCapture(1)
-labels = []
+labels = set()  # Use a set for efficient label storage
 
-while True:
-    ret, frame = video.read()
-    # Bounding box.
-    # the cvlib library has learned some basic objects using object learning
-    # usually it takes around 800 images for it to learn what a phone is.
-    bbox, label, conf = cv.detect_common_objects(frame)
+for dataset_path in dataset_paths:
+    for root, dirs, files in os.walk(dataset_path):
+        for file in files:
+            if file.lower().endswith((".png", ".jpg")):
+                image_path = os.path.join(root, file)
+                image = cv2.imread(image_path)
 
-    output_image = draw_bbox(frame, bbox, label, conf)
+                if image is None:
+                    print(f"Unable to read image: {image_path}")
+                    continue
 
-    cv2.imshow("Detection", output_image)
+                try:
+                    bbox, label, conf = detect_common_objects(image)
+                    output_image = draw_bbox(image, bbox, label, conf)
+                    cv2.imshow("Detection", output_image)
+                    cv2.waitKey(1000)  # Display each image for 1 second
 
-    for item in label:
-        if item in labels:
-            pass
-        else:
-            labels.append(item)
+                    labels.update(label)  # Add labels to the set
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
+                except Exception as e:
+                    print(f"Error processing image {image_path}: {str(e)}")
 
-i = 0
-new_sentence = []
-for label in labels:
-    if i == 0:
-        new_sentence.append(f"I found a {label}, and, ")
-    else:
-        new_sentence.append(f"a {label},")
+cv2.destroyAllWindows()  # Close all OpenCV windows
 
-    i += 1
-
+new_sentence = [f"I found {' and '.join(labels)}."] if labels else ["No objects detected."]
 speech(" ".join(new_sentence))
-speech("Here are the food facts i found for these items:")
-
-for label in labels:
-    try:
-        print(f"\n\t{label.title()}")
-        food_facts(label)
-
-    except:
-        print("No food facts for this item")
