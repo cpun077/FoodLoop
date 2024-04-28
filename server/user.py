@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, response):#name, email, phone, address, city, state, zipcode, is_organization):
+    def __init__(self, response, supabase, config):
         self.name = response["Name"]
         self.email = response["Email"]
         self.phone = response["PhoneNumber"]
@@ -8,3 +8,6 @@ class User:
         self.state = response["State"]
         self.zipcode = response["Zip Code"]
         self.is_organization = response["Organization"]
+
+        self.supabase = supabase
+        self.config = config

@@ -5,6 +5,10 @@ import json
 from util import get_coordinates
 from donater import Donater
 from receiver import Receiver
+import logging
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
 
 with open("config.json", "r") as jsonFile:
     config = json.load(jsonFile)
@@ -24,14 +28,16 @@ def return_home():
 def donate_send_form():
     data = {"Email":"lakaayush@gmail.com", "Description":"Yummy Food", "Picture":"pic"}
     response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
-    donater = Donater(response)
+    donater = Donater(response, supabase, config)
     donater.post_food(data["Description"], data["Picture"])
 
 def request_send_form():
-    data = {"Email":"godslayer@gmail.com", "Food ID":1}
-    response = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
-    donater = Receiver(response)
-    donater.request_food()
+    data = {"Email":"godslayer@gmail.com", "Food ID":3}
+    response1 = supabase.table('Users').select("*").eq("Email", data["Email"]).execute().data[0]
+    response2 = supabase.table('Food').select("*").eq("id", data["Food ID"]).execute().data[0]
+    donater = Receiver(response1, supabase, config)
+    donater.request_food(response2)
+
 
 request_send_form()
 import sys

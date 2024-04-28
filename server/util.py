@@ -13,4 +13,5 @@ def get_coordinates(address):
 def get_distance(c1, c2):
     return geopy.distance.geodesic(c1, c2).miles
 
-print(get_coordinates("1299 Susan Way 94087"))
+
+    
