@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './FoodRequestorPage1.css';
-import RootLayout from '../layout';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import { SetMeal } from '@mui/icons-material';
 
@@ -34,12 +33,12 @@ export default function Request() {
           "Food ID": props.id,
         })
       });
-  
+
       if (!response.ok) {
         const data = await response.json()
         alert(data.error)
       }
-  
+
     }
 
     return (
@@ -101,28 +100,26 @@ export default function Request() {
   }, [])
 
   return (
-    <RootLayout>
-      <div className="food-request-page-1">
-        <div className="food-request-page-1-inner">
-          <div className="request-the-following-foods-fo-parent">
-            <div className="about-us">Request the following foods for free.</div>
-            <div className="frame-wrapper">
-              <div className="pescatarian-parent">
-                <div className="about-us">Pescatarian</div>
-                <SetMealIcon />
+    <div className="food-request-page-1">
+      <div className="food-request-page-1-inner">
+        <div className="request-the-following-foods-fo-parent">
+          <div className="about-us">Request the following foods for free.</div>
+          <div className="frame-wrapper">
+            <div className="pescatarian-parent">
+              <div className="about-us">Pescatarian</div>
+              <SetMealIcon />
 
-              </div>
             </div>
           </div>
         </div>
-        <div className="food-carousel">
-          {
-            items.map((item) => (
-              <Item description={item.description} pic={item.pic} id={item.id}/>
-            ))
-          }
-        </div>
       </div>
-    </RootLayout>
+      <div className="food-carousel">
+        {
+          items.map((item) => (
+            <Item description={item.description} pic={item.pic} id={item.id} />
+          ))
+        }
+      </div>
+    </div>
   );
 }

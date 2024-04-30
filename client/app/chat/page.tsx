@@ -1,7 +1,6 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import RootLayout from '../layout';
 import './ChatPage.css';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -59,33 +58,31 @@ export default function Chat() {
     }
 
     return (
-        <RootLayout>
-            <div className="chat-page">
-                <div className="uploadfoodimagebutton-parent">
-                    <img className="uploadfoodimagebutton-icon" alt="" src="https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B" />
+        <div className="chat-page">
+            <div className="uploadfoodimagebutton-parent">
+                <img className="uploadfoodimagebutton-icon" alt="" src="https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B" />
 
-                    <div className="this-is-the-container">
-                        <p className="this-is-the">This is the description of the food presented to the left.</p>
-                        <p className="this-is-the">&nbsp;</p>
-                        <p className="this-is-the">Estimated Arrival: 3:05 PM</p>
-                        <p className="this-is-the">Name of Delivery Driver: Benjamin Charles</p>
-                    </div>
-                </div>
-                <div className='logcontainer'>
-                    {log.map((msg) => (
-                        <div>
-                            <ChatMsg
-                                name={msg.name}
-                                text={msg.text}
-                            />
-                        </div>
-                    ))}
-                </div>
-                <div className="input-field-parent">
-                    <input onChange={(e) => setText(e.currentTarget.value)} className='input-field' placeholder='Type your message here' />
-                    <button className='mic-icon' onClick={handleClick}><SendIcon /></button>
+                <div className="this-is-the-container">
+                    <p className="this-is-the">This is the description of the food presented to the left.</p>
+                    <p className="this-is-the">&nbsp;</p>
+                    <p className="this-is-the">Estimated Arrival: 3:05 PM</p>
+                    <p className="this-is-the">Name of Delivery Driver: Benjamin Charles</p>
                 </div>
             </div>
-        </RootLayout>
+            <div className='logcontainer'>
+                {log.map((msg) => (
+                    <div>
+                        <ChatMsg
+                            name={msg.name}
+                            text={msg.text}
+                        />
+                    </div>
+                ))}
+            </div>
+            <div className="input-field-parent">
+                <input onChange={(e) => setText(e.currentTarget.value)} className='input-field' placeholder='Type your message here' />
+                <button className='mic-icon' onClick={handleClick}><SendIcon /></button>
+            </div>
+        </div>
     );
 }

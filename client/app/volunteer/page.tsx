@@ -1,7 +1,6 @@
 "use client";
 
 import Link from 'next/link';
-import RootLayout from '../layout';
 import { useEffect, useState } from 'react';
 import './DeliveryLandingPage.css';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -134,7 +133,6 @@ export default function Volunteer() {
   }, [])
 
   return (
-    <RootLayout>
       <div className="delivery-landing-page-ui">
         <div className="delivery-landing-page-ui-inner">
           <div className="thank-you-for-donating-your-ti-wrapper">
@@ -217,6 +215,5 @@ export default function Volunteer() {
           ))
         }
       </div>
-    </RootLayout>
   );
 }
