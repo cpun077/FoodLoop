@@ -25,14 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
-    // Check if the user is signed in using localStorage
     const email = localStorage.getItem('Email');
     if (email) {
       setAuth(true)
     } else {
       setAuth(false)
     }
-  }, [auth]);
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("Email")

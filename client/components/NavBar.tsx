@@ -1,11 +1,14 @@
 import Link from "next/link"
 
-interface NavBarProps {
-    auth: boolean;
-    method: () => void; // Adjust this type based on what your method does
-  }
+const NavBarButton = ({ link, text }: { link: string; text: string }) => {
+    return (
+        <Link className="about-us" href={link}>
+            {text}
+        </Link>
+    )
+}
 
-export default function NavBar(props:NavBarProps) {
+export default function NavBar({ auth, method }: { auth: boolean; method: () => void }) {
     return (
         <div className="nav-bar-parent">
             <div className="nav-bar">
@@ -14,26 +17,16 @@ export default function NavBar(props:NavBarProps) {
                 </Link>
 
                 <div className="navbarbuttons">
-                    <Link className="about-us" href={"/login"}>
-                        About Us
-                    </Link>
-                    <Link className="about-us" href={"/login"}>
-                        FAQ
-                    </Link>
-                    <Link className="about-us" href={"/login"}>
-                        History
-                    </Link>
-                    <Link className="about-us" href={"/chat"}>
-                        Chat
-                    </Link>
-                    {props.auth ? (
-                        <button className="about-us" onClick={props.method}>
+                    <NavBarButton link="/login" text="About Us"/>
+                    <NavBarButton link="/login" text="FAQ"/>
+                    <NavBarButton link="/login" text="History"/>
+                    <NavBarButton link="/chat" text="Chat"/>
+                    {auth ? (
+                        <button className="about-us" onClick={method}>
                             Sign Out
                         </button>
                     ) : (
-                        <Link className="about-us" href={"/login"}>
-                            Sign In
-                        </Link>
+                        <NavBarButton link="/login" text="Sign In"/>
                     )}
                 </div>
             </div>
