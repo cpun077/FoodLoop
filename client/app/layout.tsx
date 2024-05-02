@@ -1,22 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Montserrat } from 'next/font/google'
 import NavBar from '@/components/NavBar';
 import { redirect } from 'next/navigation';
+import { metadata } from './metadata';
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
-// export const metadata = {
-//   metadataBase: new URL(defaultUrl),
-//   title: "Food Loop",
-//   description: "Bridging volunteers, leftover food, and those in need!",
-// }; Needs to be not client
-
-const mont = Montserrat({
+const montserrat = Montserrat({
   subsets: ['latin'],
   display: 'swap',
 })
@@ -39,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={montserrat.className} >
       <head>
         <link rel="icon" href="./assets/logo.png" />
       </head>
