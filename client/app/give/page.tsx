@@ -99,7 +99,7 @@ export default function Give() {
             </span>
           </div>
         </div>
-        <label htmlFor="avatar">Upload image of donation:</label>
+        <label htmlFor="avatar">Upload Image of Donation:</label>
         <form>
           <input
             className="uploadfoodimagebutton"
@@ -120,12 +120,12 @@ export default function Give() {
                 className="input-field"
                 name="desc"
                 type='text'
-                placeholder='In the description please enter if the food is vegan, vegetarian or what kind of meat it contains. For Example: 1 In N Out Burger Cheese Burger. Contains Beef.'
+                placeholder='Please enter potential dietary restrictions or allergens, and current status of the food.'
                 required
               />
               <SubmitButton
                 formAction={submit}
-                className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+                className="bg-purple-700 border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
                 pendingText="Uploading..."
               >
                 Submit Photo and Description

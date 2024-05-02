@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Image from "next/image";
+import logo from "../app/assets/logo.png"
 
 const NavBarButton = ({ link, text }: { link: string; text: string }) => {
     return (
@@ -13,7 +15,7 @@ export default function NavBar({ auth, method }: { auth: boolean; method: () => 
         <div className="nav-bar-parent">
             <div className="nav-bar">
                 <Link href={"/"}>
-                    <img className="foodloop-logo-1" alt="" src="https://drive.google.com/thumbnail?id=1nqead4zKVwK5dLZE3k3ylAEJGQnbNemu" />
+                    <Image className="foodloop-logo-1" alt="Logo" src={logo} />
                 </Link>
 
                 <div className="navbarbuttons">

@@ -8,8 +8,6 @@ import { SetMeal } from '@mui/icons-material';
 
 export default function Request() {
 
-  let temppic = "https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B"
-
   const [clicked, setClicked] = useState(false)
 
   interface ItemInterface {

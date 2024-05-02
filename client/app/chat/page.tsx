@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import './ChatPage.css';
 import SendIcon from '@mui/icons-material/Send';
+import Image from 'next/image';
+import foodplaceholder from '../assets/foodplaceholder.jpg'
 
 export default function Chat() {
 
@@ -60,7 +62,7 @@ export default function Chat() {
     return (
         <div className="chat-page">
             <div className="uploadfoodimagebutton-parent">
-                <img className="uploadfoodimagebutton-icon" alt="" src="https://drive.google.com/thumbnail?id=1SHzji5N7mM0hxLYWaNXlj2O6lJ5fOY9B" />
+                <Image className="uploadfoodimagebutton-icon" alt="Food" src={foodplaceholder} />
 
                 <div className="this-is-the-container">
                     <p className="this-is-the">This is the description of the food presented to the left.</p>

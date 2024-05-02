@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="https://drive.google.com/thumbnail?id=1nqead4zKVwK5dLZE3k3ylAEJGQnbNemu" />
+        <link rel="icon" href="./assets/logo.png" />
       </head>
       <body className="bg-background text-foreground">
       <NavBar auth={auth} method={logout}/>

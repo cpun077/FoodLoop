@@ -48,9 +48,13 @@
   	font-family: Montserrat;
 }
 .thank-you-for-donating-your-fo {
-  	margin: 0;
-	color: yellow;
+	color: #70b77e;
 	font-weight: bold;
+	text-shadow:
+    2px 2px 0 #000,
+    -2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000;
 }
 .thank-you-for-container {
   	align-self: stretch;
@@ -58,6 +62,7 @@
   	position: relative;
   	display: flex;
   	align-items: center;
+	justify-content: center;
 }
 .thank-you-for-donating-your-fo-wrapper {
   	align-self: stretch;
@@ -213,7 +218,7 @@
 }
 
 .food-donator-landing-page#back {
-	background-image: url("../confetti.gif");
+	background-image: url("../assets/confetti.gif");
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -224,4 +229,3 @@
 .food-donator-landing-page#back h1 {
 	color: yellow;
 }
-
