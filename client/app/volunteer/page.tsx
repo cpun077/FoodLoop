@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import './DeliveryLandingPage.css';
+import './volunteer.css';
 import SpeedIcon from '@mui/icons-material/Speed';
 
 export default function Volunteer() {

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import './DonatorLandingPage.css';
+import './give.css';
 import { SubmitButton } from "../login/submit-button";
 import { redirect } from 'next/navigation';
 import NavBar from '@/components/NavBar';

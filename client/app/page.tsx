@@ -1,5 +1,7 @@
 import './landingpage.css';
 import Link from 'next/link';
+import banner from './assets/banner.jpg'
+import Image from 'next/image';
 
 const ActionButton = ({ className, link, text }: { className: string; link: string; text: string; }) => {
 	return (
@@ -17,7 +19,7 @@ export default function Dashboard() {
 				Around <b>181,000 tons</b> of food is wasted in the United States everyday
 			</h1>
 			<div className="bannerfinal-2-wrapper">
-				<img className="bannerfinal-2-icon" alt="" src="https://media.istockphoto.com/id/536665840/photo/family-dinner.jpg?s=612x612&w=0&k=20&c=9dc8vWUoErfaxzTNqYt2T7sA5DyCRO5gRvF6pYU1LSI=" />
+				<Image className="bannerfinal-2-icon" alt="Logo" src={banner} />
 			</div>
 			<div className="wastage-fact">Together, we can make a measurable impact.</div>
 			<div className="get-started-here-parent">

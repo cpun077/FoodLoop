@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import './ChatPage.css';
+import './chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import Image from 'next/image';
 import foodplaceholder from '../assets/foodplaceholder.jpg'
