@@ -1,54 +1,6 @@
-.foodloop-logo-1 {
-  	width: 56px;
-  	position: relative;
-  	height: 52.1px;
-  	object-fit: cover;
-}
-.about-us {
-  	position: relative;
-}
 .chat {
   	position: relative;
   	text-decoration: underline;
-}
-.navbarbuttons {
-  	height: 52px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: flex-end;
-  	justify-content: center;
-  	gap: 80px;
-}
-.nav-bar {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: flex-start;
-  	justify-content: space-between;
-}
-.line-child {
-  	align-self: stretch;
-  	position: relative;
-  	border-top: 1px solid #000;
-  	box-sizing: border-box;
-  	height: 1px;
-}
-.line {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: flex-start;
-  	justify-content: flex-start;
-}
-.nav-bar-parent {
-  	align-self: stretch;
-  	display: flex;
-  	flex-direction: column;
-  	align-items: flex-start;
-  	justify-content: flex-start;
-  	gap: 8px;
-  	font-size: 24px;
-  	font-family: Montserrat;
 }
 .uploadfoodimagebutton-icon {
   	width: 211px;

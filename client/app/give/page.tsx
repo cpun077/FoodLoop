@@ -137,12 +137,12 @@ export default function Give() {
         </div>
         <div className="frame-div">
           <div className="pending-delivery-of-your-food-wrapper">
-            <b className="about-us">Pending Delivery of your food</b>
+            <b className="nav-bar-button">Pending Delivery of your food</b>
           </div>
         </div>
         <div className="food-donator-landing-page-inner1">
           <div className="pending-delivery-of-your-food-wrapper">
-            <div className="about-us">No food uploaded to donate yet!</div>
+            <div className="nav-bar-button">No food uploaded to donate yet!</div>
           </div>
         </div>
       </div>

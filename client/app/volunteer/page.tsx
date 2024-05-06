@@ -146,7 +146,7 @@ export default function Volunteer() {
         </div>
         <div className="frame-parent">
           <div className="total-miles-to-travel-parent">
-            <div className="about-us">Total miles to travel:</div>
+            <div className="nav-bar-button">Total miles to travel:</div>
             <div className="frame-wrapper">
               <div className="miles-parent">
                 <div className="miles">20 Miles</div>

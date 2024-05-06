@@ -47,7 +47,7 @@ export default function Request() {
           <p className="shrimp-scampi">{props.description}</p>
         </div>
         <div className="requestthisbutton">
-          <div className="about-us">Order</div>
+          <div className="nav-bar-button">Order</div>
         </div>
       </button>
     )
@@ -101,10 +101,10 @@ export default function Request() {
     <div className="food-request-page-1">
       <div className="food-request-page-1-inner">
         <div className="request-the-following-foods-fo-parent">
-          <div className="about-us">Request the following foods for free.</div>
+          <div className="nav-bar-button">Request the following foods for free.</div>
           <div className="frame-wrapper">
             <div className="pescatarian-parent">
-              <div className="about-us">Pescatarian</div>
+              <div className="nav-bar-button">Pescatarian</div>
               <SetMealIcon />
 
             </div>

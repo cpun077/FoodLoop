@@ -1,10 +1,11 @@
 import Link from "next/link"
 import Image from "next/image";
 import logo from "../app/assets/logo.png"
+import './navbar.css'
 
-const NavBarButton = ({ link, text }: { link: string; text: string }) => {
+const NavBarButton = ({ link, text, action }: { link: string; text: string; action: () => void }) => {
     return (
-        <Link className="about-us" href={link}>
+        <Link className="nav-bar-button" href={link}>
             {text}
         </Link>
     )
@@ -18,18 +19,12 @@ export default function NavBar({ auth, method }: { auth: boolean; method: () => 
                     <Image className="foodloop-logo-1" alt="Logo" src={logo} />
                 </Link>
 
-                <div className="navbarbuttons">
-                    <NavBarButton link="/login" text="About Us"/>
-                    <NavBarButton link="/login" text="FAQ"/>
-                    <NavBarButton link="/login" text="History"/>
-                    <NavBarButton link="/chat" text="Chat"/>
-                    {auth ? (
-                        <button className="about-us" onClick={method}>
-                            Sign Out
-                        </button>
-                    ) : (
-                        <NavBarButton link="/login" text="Sign In"/>
-                    )}
+                <div className="nav-bar-button-container">
+                    <NavBarButton link="/login" text="About Us" action={() => {}}/>
+                    <NavBarButton link="/login" text="FAQ" action={() => {}}/>
+                    <NavBarButton link="/login" text="History" action={() => {}}/>
+                    <NavBarButton link="/chat" text="Chat" action={() => {}}/>
+                    <NavBarButton link="/login" text={auth?"Sign Out":"Sign In"} action={auth?() => {}:method}/>
                 </div>
             </div>
             <div className="line">
