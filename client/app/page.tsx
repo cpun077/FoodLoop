@@ -6,7 +6,7 @@ import Image from 'next/image';
 const ActionButton = ({ className, link, text }: { className: string; link: string; text: string; }) => {
 	return (
 		<Link className={className} href={link}>
-			<div className="approx-181000-tons-container">{text}</div>
+			{text}
 		</Link>
 	)
 }

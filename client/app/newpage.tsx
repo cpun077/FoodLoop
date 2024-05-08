@@ -5,7 +5,7 @@ import Image from 'next/image';
 const ActionButton = ({ className, link, text }: { className: string; link: string; text: string; }) => {
 	return (
 		<Link className={className} href={link}>
-			<div className="approx-181000-tons-container">{text}</div>
+			{text}
 		</Link>
 	)
 }
@@ -32,7 +32,7 @@ export default function Dashboard() {
 						</a>
 					</div>
 					<div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-						<Image className="bannerfinal-2-icon" alt="Banner" src={banner} />
+						<Image alt="Banner" src={banner} />
 					</div>
 				</div>
 			</section>
