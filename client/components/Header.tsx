@@ -10,7 +10,7 @@ export default function Header() {
           className="font-bold hover:underline"
           rel="noreferrer"
         >
-          *Insert Name Here*
+          FoodLoop
         </a>
       </p>
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />

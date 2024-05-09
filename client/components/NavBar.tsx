@@ -3,8 +3,9 @@ import Image from "next/image";
 import logo from "../app/assets/logo.png"
 import './navbar.css'
 import MenuIcon from '@mui/icons-material/Menu';
+import AuthButton from "@/components/AuthButton";
 
-const NavBarButton = ({ link, text, action }: { link: string; text: string; action: () => void }) => {
+const NavBarButton = ({ link, text }: { link: string; text: string; }) => {
     return (
         <Link className="nav-bar-button" href={link}>
             {text}
@@ -12,7 +13,7 @@ const NavBarButton = ({ link, text, action }: { link: string; text: string; acti
     )
 }
 
-export default function NavBar({ auth, method }: { auth: boolean; method: () => void }) {
+export default function NavBar() {
     return (
         <div className="nav-bar-parent">
             <div className="nav-bar">
@@ -21,11 +22,11 @@ export default function NavBar({ auth, method }: { auth: boolean; method: () => 
                 </Link>
 
                 <div className="nav-bar-button-container">
-                    <NavBarButton link="/login" text="About Us" action={() => {}}/>
-                    <NavBarButton link="/login" text="FAQ" action={() => {}}/>
-                    <NavBarButton link="/login" text="History" action={() => {}}/>
-                    <NavBarButton link="/chat" text="Chat" action={() => {}}/>
-                    <NavBarButton link="/login" text={auth?"Sign Out":"Sign In"} action={auth?() => {}:method}/>
+                    <NavBarButton link="/login" text="About Us" />
+                    <NavBarButton link="/login" text="FAQ" />
+                    <NavBarButton link="/login" text="History" />
+                    <NavBarButton link="/chat" text="Chat" />
+                    <AuthButton />
                 </div>
                 <div className="navmenu">
                     <MenuIcon />
