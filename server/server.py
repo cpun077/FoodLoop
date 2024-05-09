@@ -152,26 +152,26 @@ def get_deliveries():
         "message":f"{rets}"
         })
 
-@app.route("/api/signin", methods=['POST'])
-def signin():
-    data = request.get_json()
-    if data:
-        response1 = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
-        response2 = supabase.table('Users').select('*').eq("Password", data["Password"]).execute()
+# @app.route("/api/signin", methods=['POST'])
+# def signin():
+#     data = request.get_json()
+#     if data:
+#         response1 = supabase.table('Users').select('*').eq("Email", data["Email"]).execute()
+#         response2 = supabase.table('Users').select('*').eq("Password", data["Password"]).execute()
 
-        if len(response1.data) > 0 and len(response2.data) > 0:
-            return jsonify({
-                'message': f'{data}'
-            })
-        else:
-            return jsonify({
-                "error": "Incorrect credentials"
-            }), 404
+#         if len(response1.data) > 0 and len(response2.data) > 0:
+#             return jsonify({
+#                 'message': f'{data}'
+#             })
+#         else:
+#             return jsonify({
+#                 "error": "Incorrect credentials"
+#             }), 404
 
-    else:
-        return jsonify({
-            "error": "Missing some fields"
-        }), 400
+#     else:
+#         return jsonify({
+#             "error": "Authentication Error"
+#         }), 400
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)

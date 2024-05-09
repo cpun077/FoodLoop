@@ -22,30 +22,6 @@ export default function Login({
       return
     } else {
       login(formData)
-      // const email = formData.get("email") as string;
-      // const password = formData.get("password") as string;
-      // console.log(email, password)
-
-      // const response = await fetch('http://localhost:8000/api/signin', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     "Email": email,
-      //     "Password": password,
-      //   })
-      // });
-
-      // if (!response.ok) {
-      //   const data = await response.json()
-      //   return redirect(`/login?message=${data.error}`)
-      // }
-
-      // localStorage.clear()
-      // localStorage.setItem('Email', email)
-
-      // return redirect("/")
     }
   };
 
@@ -56,45 +32,6 @@ export default function Login({
       return
     } else {
       signup(formData)
-      // const name = formData.get("name") as string;
-      // const email = formData.get("email") as string;
-      // const phone = formData.get("phone") as string;
-      // const address = formData.get("address") as string;
-      // const city = formData.get("city") as string;
-      // const state = formData.get("state") as string;
-      // const zipcode = parseInt(formData.get("zipcode") as string) as number;
-      // const org = parseInt(formData.get("org") as string) as number;
-      // const type = parseInt(formData.get("type") as string) as number;
-      // const password = formData.get("password") as string;
-
-      // const response = await fetch('http://localhost:8000/api/signup', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     "Name": name,
-      //     "Email": email,
-      //     "PhoneNumber": phone,
-      //     "Address": address,
-      //     "City": city,
-      //     "State": state,
-      //     "Zip Code": zipcode,
-      //     "Organization": org,
-      //     "Type": type,
-      //     "Password": password,
-      //   })
-      // });
-
-      // if (!response.ok) {
-      //   const data = await response.json()
-      //   return redirect(`/login?message=${data.error}`)
-      // }
-
-      // localStorage.clear()
-      // localStorage.setItem('Email', email)
-
-      // return redirect("/")
     }
   };
 
