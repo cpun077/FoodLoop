@@ -3,15 +3,26 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
-import './login.css';
 import { useState } from "react";
 import { login, signup } from "./actions";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+const LoginInput = ({label, name, placeholder, hidden}:{label:string, name:string, placeholder:string, hidden:boolean}) => {
+  return (
+    <div className="flex flex-col gap-2 mb-6 logininput" style={{display: hidden?('none'):('flex'), opacity: hidden?(0):(1)}}>
+      <label className="text-md" htmlFor={name}>
+        {label}
+      </label>
+      <input
+        className="rounded-md px-4 py-2 bg-inherit border"
+        name={name}
+        placeholder={placeholder}
+        type={name==="password"?(name):("text")}
+      />
+    </div>
+  )
+}
+
+export default function Login({ searchParams, }: { searchParams: { message: string }; }) {
 
   const [signin, setSignin] = useState(true)
 
@@ -36,7 +47,7 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center">
       <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
@@ -58,84 +69,23 @@ export default function Login({
         Back
       </Link>
 
-      <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground" id='login'>
-        <label className="text-md" htmlFor="name" hidden={signin}>
-          Name
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="name"
-          placeholder="John Doe"
-          hidden={signin}
-        />
+      <form className="animate-in flex-1 flex flex-col w-full justify-center text-foreground" id='login'>
+        <header className="mx-auto text-lg mb-5">{signin?("Welcome Back!"):("Welcome!")}</header>
+        <LoginInput label="First Name" name="first" placeholder="John" hidden={signin} />
+        <LoginInput label="Last Name" name="last" placeholder="Doe" hidden={signin} />
+        <LoginInput label="Email" name="email" placeholder="you@example.com" hidden={false} />
+        {/* <LoginInput label="Phone Number" name="phone" placeholder="01234567890" hidden={signin} />
+        <LoginInput label="Home Address" name="address" placeholder="1234 Fake Avenue" hidden={signin} />
+        <LoginInput label="City" name="city" placeholder="Cupertino" hidden={signin} />
+        <LoginInput label="State" name="state" placeholder="California" hidden={signin} />
+        <LoginInput label="Zip Code" name="zipcode" placeholder="90210" hidden={signin} /> */}
 
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="email"
-          placeholder="you@example.com"
-          type="email"
-        />
-
-        <label className="text-md" htmlFor="phone" hidden={signin}>
-          Phone Number
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="phone"
-          placeholder="01234567890"
-          hidden={signin}
-        />
-
-        <label className="text-md" htmlFor="address" hidden={signin}>
-          Home Address
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="address"
-          placeholder="1234 Fake Avenue"
-          hidden={signin}
-        />
-
-        <label className="text-md" htmlFor="city" hidden={signin}>
-          City
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="city"
-          placeholder="Cupertino"
-          hidden={signin}
-        />
-
-        <label className="text-md" htmlFor="state" hidden={signin}>
-          State
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="state"
-          placeholder="California"
-          hidden={signin}
-        />
-
-        <label className="text-md" htmlFor="zipcode" hidden={signin}>
-          Zipcode
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          name="zipcode"
-          placeholder="90210"
-          type="number"
-          hidden={signin}
-        />
-
-        <label className="text-md mb-1.5" htmlFor="org" hidden={signin}>
+        {/* <label className="text-md mb-2.5" htmlFor="org" hidden={signin}>
           Organization
         </label>
         <div>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-4"
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="org"
             hidden={signin}
             type="radio"
@@ -144,7 +94,7 @@ export default function Login({
           />
           <label
             htmlFor="yes"
-            className="picker"
+            className="ml-5"
             hidden={signin}
           >
             Yes
@@ -152,7 +102,7 @@ export default function Login({
         </div>
         <div>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-4"
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="org"
             hidden={signin}
             type="radio"
@@ -161,19 +111,19 @@ export default function Login({
           />
           <label
             htmlFor="no"
-            className="picker"
+            className="ml-5"
             hidden={signin}
           >
             No
           </label>
         </div>
 
-        <label className="text-md mb-1.5" htmlFor="type" hidden={signin}>
+        <label className="text-md mb-2.5" htmlFor="type" hidden={signin}>
           User Type
         </label>
         <div>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-4"
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="type"
             hidden={signin}
             type="radio"
@@ -182,7 +132,7 @@ export default function Login({
           />
           <label
             htmlFor="giver"
-            className="picker"
+            className="ml-5"
             hidden={signin}
           >
             Giver
@@ -190,7 +140,7 @@ export default function Login({
         </div>
         <div>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-4"
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="type"
             hidden={signin}
             type="radio"
@@ -199,7 +149,7 @@ export default function Login({
           />
           <label
             htmlFor="receiver"
-            className="picker"
+            className="ml-5"
             hidden={signin}
           >
             Receiver
@@ -207,7 +157,7 @@ export default function Login({
         </div>
         <div>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-4"
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="type"
             hidden={signin}
             type="radio"
@@ -216,34 +166,26 @@ export default function Login({
           />
           <label
             htmlFor="volunteer"
-            className="picker"
+            className="ml-5"
             hidden={signin}
           >
             Volunteer
           </label>
-        </div>
+        </div> */}
 
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-4"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-        />
+        <LoginInput label="Password" name="password" placeholder="••••••••" hidden={false} />
 
         <SubmitButton
           formAction={signIn}
           className={!signin ? ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2") : ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2")}
-          pendingText="Signing In..."
+          pendingText={!signin?"Sign In":"Signing In..."}
         >
           Sign In
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
           className={!signin ? ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2") : ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2")}
-          pendingText="Signing Up..."
+          pendingText={!signin?"Signing Up...":"Sign Up"}
         >
           Sign Up
         </SubmitButton>
