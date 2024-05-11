@@ -71,6 +71,10 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
 
       <form className="animate-in flex-1 flex flex-col w-full justify-center text-foreground" id='login'>
         <header className="mx-auto text-lg mb-5">{signin?("Welcome Back!"):("Welcome!")}</header>
+        {/* <div className='mx-auto flex flex-row justifycenter'>
+          <div>google federated login</div>
+          <div>right here!</div>
+        </div> */}
         <LoginInput label="First Name" name="first" placeholder="John" hidden={signin} />
         <LoginInput label="Last Name" name="last" placeholder="Doe" hidden={signin} />
         <LoginInput label="Email" name="email" placeholder="you@example.com" hidden={false} />

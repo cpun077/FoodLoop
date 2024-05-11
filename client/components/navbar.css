@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
@@ -32,39 +32,38 @@
 .navmenu {
     display: none;
 }
-@media (max-width:900px) {
+@media (max-width:1131px) {
     .nav-bar-parent {
         font-size: 1rem;
     }
     .foodloop-logo-1 {
-        max-width: 2rem;
-        max-height: 2rem;
+        max-width: 2.75rem;
+        max-height: 2.75rem;
     }
     .nav-bar-button-container {
-        max-height: 3rem;
-        gap: 4rem;
-    }
-}
-@media (max-width:730px) {
-    .nav-bar-parent {
-        font-size: 0.7rem;
-    }
-    .foodloop-logo-1 {
-        max-width: 1.7rem;
-        max-height: 1.7rem;
-    }
-    .nav-bar-button-container {
-        max-height: 2.5rem;
         gap: 3rem;
     }
 }
-@media (max-width:540px) {
+@media (max-width:850px) {
     .nav-bar-parent {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
     }
     .foodloop-logo-1 {
-        max-width: 1.5rem;
-        max-height: 1.5rem;
+        max-width: 2.5rem;
+        max-height: 2.5rem;
+    }
+    .nav-bar-button-container {
+        max-height: 3.25rem;
+        gap: 1rem;
+    }
+}
+@media (max-width:648px) {
+    .nav-bar-parent {
+        font-size: 0.8rem;
+    }
+    .foodloop-logo-1 {
+        max-width: 1.6rem;
+        max-height: 1.6rem;
     }
     .nav-bar-button-container {
         display: none;
