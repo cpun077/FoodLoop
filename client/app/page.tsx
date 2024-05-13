@@ -3,9 +3,9 @@ import Link from 'next/link';
 import banner from './assets/banner.jpg'
 import Image from 'next/image';
 
-const ActionButton = ({ className, link, text }: { className: string; link: string; text: string; }) => {
+const ActionButton = ({ id, link, text }: { id: string; link: string; text: string; }) => {
 	return (
-		<Link className={className} href={link}>
+		<Link className='homeactionbutton' id={id} href={link}>
 			{text}
 		</Link>
 	)
@@ -25,9 +25,9 @@ export default function Dashboard() {
 			<div className="get-started-here-parent">
 				<b>Get started here!</b>
 				<div className="primary-3-buttons">
-					<ActionButton className="deliverbutton" link="/volunteer" text="Volunteer to Deliver Food" />
-					<ActionButton className="requestfoodbutton" link="/request" text="Request Food" />
-					<ActionButton className="donatefoodbutton" link="/give" text="Donate Food" />
+					<ActionButton id="deliver" link="/volunteer" text="Volunteer to Deliver Food" />
+					<ActionButton id="request" link="/request" text="Request Food" />
+					<ActionButton id="donate" link="/give" text="Donate Food" />
 				</div>
 			</div>
 		</div>

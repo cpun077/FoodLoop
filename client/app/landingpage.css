@@ -29,46 +29,28 @@
   	align-items: center;
   	justify-content: center;
 }
-.deliverbutton {
-  	flex: 1;
-  	border-radius: 16px;
-  	background-color: #70b77e;
-  	height: 120px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: flex-start;
-  	padding: 0px 16px;
-  	box-sizing: border-box;
-  	color: #000;
+.homeactionbutton {
+	flex: 1;
+	border-radius: 16px;
+	height: 120px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 0px 16px;
+	box-sizing: border-box;
 }
-.requestfoodbutton {
-  	flex: 1;
-  	border-radius: 16px;
-  	background-color: #065143;
-  	height: 120px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: center;
-  	padding: 0px 16px;
-  	box-sizing: border-box;
+.homeactionbutton#deliver {
+	background-color: #70b77e;
 }
-.donatefoodbutton {
-  	flex: 1;
-  	border-radius: 16px;
-  	background-color: #420039;
-  	height: 120px;
-  	display: flex;
-  	flex-direction: row;
-  	align-items: center;
-  	justify-content: flex-start;
-  	padding: 0px 16px;
-  	box-sizing: border-box;
+.homeactionbutton#request {
+	background-color: #065143;
+}
+.homeactionbutton#donate {
+	background-color: #420039;
 }
 .primary-3-buttons {
   	align-self: stretch;
-  	border: 1px solid #fff;
   	display: flex;
   	flex-direction: row;
   	align-items: center;
@@ -76,7 +58,6 @@
   	gap: 24px;
   	font-size: 32px;
   	color: #fff;
-  	font-family: "montserrat";
 }
 .get-started-here-parent {
   	align-self: stretch;

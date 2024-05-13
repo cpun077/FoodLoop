@@ -33,8 +33,7 @@ export default function NavBar() {
                 </div>
             </div>
             <div className="line">
-                <div className="line-child">
-                </div>
+                <div className="line-child" />
             </div>
         </div>
     )

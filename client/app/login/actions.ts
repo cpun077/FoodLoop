@@ -25,13 +25,21 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient()
 
-  const { error } = await supabase.auth.signUp({
+  const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    first: formData.get('first') as string,
+    last: formData.get('last') as string
+  }
+
+  const { error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
     options: {
       data: {
-        first_name: formData.get('first') as string,
-        last_name: formData.get('last') as string,
+        first_name: data.first.trim(),
+        last_name: data.last.trim(),
+        full_name: `${data.first.trim()} ${data.last.trim()}`
       },
     }
   })

@@ -10,7 +10,7 @@ import { createClient } from "@/utils/supabase/client";
 
 const LoginInput = ({ label, name, placeholder, hidden }: { label: string, name: string, placeholder: string, hidden: boolean }) => {
   return (
-    <div className="flex flex-col gap-2 mb-6 logininput" style={{ display: hidden ? ('none') : ('flex'), opacity: hidden ? (0) : (1) }}>
+    <div className="flex flex-col gap-2 mb-6" style={{ display: hidden ? ('none') : ('flex'), opacity: hidden ? (0) : (1) }}>
       <label className="text-md" htmlFor={name}>
         {label}
       </label>
@@ -56,7 +56,7 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     })
-    
+
     if (error) {
       redirect("/login?message=Could not authenticate user");
     }
@@ -87,12 +87,16 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
         Back
       </Link>
 
-      <div className="animate-in flex-1 flex flex-col w-full justify-center text-foreground" id='login'>
+      <div className="animate-in flex-1 flex flex-col w-full justify-center text-foreground">
         <header className="mx-auto text-lg mb-5">{signin ? ("Welcome Back!") : ("Welcome!")}</header>
         <div className='mx-auto flex flex-row justifycenter'>
           <button onClick={glogin}><Google /></button>
         </div>
-        <form className="flex flex-col justify-center" id='login'>
+        <div className="inline-flex items-center justify-center w-full">
+          <hr className="w-80 h-px my-8 border-0 bg-foreground" />
+          <span className="absolute px-3 font-medium -translate-x-1/2 left-1/2 bg-background text-foreground">or</span>
+        </div>
+        <form className="flex flex-col justify-center">
           <LoginInput label="First Name" name="first" placeholder="John" hidden={signin} />
           <LoginInput label="Last Name" name="last" placeholder="Doe" hidden={signin} />
           <LoginInput label="Email" name="email" placeholder="you@example.com" hidden={false} />
