@@ -4,12 +4,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 import { useState } from "react";
-import { glogin, login, signup } from "./actions";
+import { login, signup } from "./actions";
 import { Google } from "@mui/icons-material";
+import { createClient } from "@/utils/supabase/client";
 
-const LoginInput = ({label, name, placeholder, hidden}:{label:string, name:string, placeholder:string, hidden:boolean}) => {
+const LoginInput = ({ label, name, placeholder, hidden }: { label: string, name: string, placeholder: string, hidden: boolean }) => {
   return (
-    <div className="flex flex-col gap-2 mb-6 logininput" style={{display: hidden?('none'):('flex'), opacity: hidden?(0):(1)}}>
+    <div className="flex flex-col gap-2 mb-6 logininput" style={{ display: hidden ? ('none') : ('flex'), opacity: hidden ? (0) : (1) }}>
       <label className="text-md" htmlFor={name}>
         {label}
       </label>
@@ -17,7 +18,7 @@ const LoginInput = ({label, name, placeholder, hidden}:{label:string, name:strin
         className="rounded-md px-4 py-2 bg-inherit border"
         name={name}
         placeholder={placeholder}
-        type={name==="password"?(name):("text")}
+        type={name === "password" ? (name) : ("text")}
       />
     </div>
   )
@@ -47,6 +48,22 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
     }
   };
 
+  const glogin = async () => {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+    
+    if (error) {
+      redirect("/login?message=Could not authenticate user");
+    }
+
+    redirect('/')
+  }
+
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center">
       <Link
@@ -70,21 +87,22 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
         Back
       </Link>
 
-      <form className="animate-in flex-1 flex flex-col w-full justify-center text-foreground" id='login'>
-        <header className="mx-auto text-lg mb-5">{signin?("Welcome Back!"):("Welcome!")}</header>
+      <div className="animate-in flex-1 flex flex-col w-full justify-center text-foreground" id='login'>
+        <header className="mx-auto text-lg mb-5">{signin ? ("Welcome Back!") : ("Welcome!")}</header>
         <div className='mx-auto flex flex-row justifycenter'>
           <button onClick={glogin}><Google /></button>
         </div>
-        <LoginInput label="First Name" name="first" placeholder="John" hidden={signin} />
-        <LoginInput label="Last Name" name="last" placeholder="Doe" hidden={signin} />
-        <LoginInput label="Email" name="email" placeholder="you@example.com" hidden={false} />
-        {/* <LoginInput label="Phone Number" name="phone" placeholder="01234567890" hidden={signin} />
+        <form className="flex flex-col justify-center" id='login'>
+          <LoginInput label="First Name" name="first" placeholder="John" hidden={signin} />
+          <LoginInput label="Last Name" name="last" placeholder="Doe" hidden={signin} />
+          <LoginInput label="Email" name="email" placeholder="you@example.com" hidden={false} />
+          {/* <LoginInput label="Phone Number" name="phone" placeholder="01234567890" hidden={signin} />
         <LoginInput label="Home Address" name="address" placeholder="1234 Fake Avenue" hidden={signin} />
         <LoginInput label="City" name="city" placeholder="Cupertino" hidden={signin} />
         <LoginInput label="State" name="state" placeholder="California" hidden={signin} />
         <LoginInput label="Zip Code" name="zipcode" placeholder="90210" hidden={signin} /> */}
 
-        {/* <label className="text-md mb-2.5" htmlFor="org" hidden={signin}>
+          {/* <label className="text-md mb-2.5" htmlFor="org" hidden={signin}>
           Organization
         </label>
         <div>
@@ -177,28 +195,29 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
           </label>
         </div> */}
 
-        <LoginInput label="Password" name="password" placeholder="••••••••" hidden={false} />
+          <LoginInput label="Password" name="password" placeholder="••••••••" hidden={false} />
 
-        <SubmitButton
-          formAction={signIn}
-          className={!signin ? ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2") : ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2")}
-          pendingText={!signin?"Sign In":"Signing In..."}
-        >
-          Sign In
-        </SubmitButton>
-        <SubmitButton
-          formAction={signUp}
-          className={!signin ? ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2") : ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2")}
-          pendingText={!signin?"Signing Up...":"Sign Up"}
-        >
-          Sign Up
-        </SubmitButton>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
-          </p>
-        )}
-      </form>
+          <SubmitButton
+            formAction={signIn}
+            className={!signin ? ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2") : ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2")}
+            pendingText={!signin ? "Sign In" : "Signing In..."}
+          >
+            Sign In
+          </SubmitButton>
+          <SubmitButton
+            formAction={signUp}
+            className={!signin ? ("bg-purple-700 rounded-md px-4 py-2 text-foreground mb-2") : ("border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2")}
+            pendingText={!signin ? "Signing Up..." : "Sign Up"}
+          >
+            Sign Up
+          </SubmitButton>
+          {searchParams?.message && (
+            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+              {searchParams.message}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
